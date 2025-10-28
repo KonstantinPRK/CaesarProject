@@ -1,21 +1,30 @@
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 public class Validator {
-    private static final String exitWord = "exit";
+    //Только проверка входных данных от внешнего мира
+    private final Menu menu;
 
-    public boolean isValidKey(int key, char[] alphabet) {
+    public Validator(Menu menu){
+        this.menu = menu;
+    }
+
+    public int isValidKey(int key) {
         // Проверка ключа
-        return false;
+        if(key < menu.ALPHABET.length){
+            return key;
+        } else {
+            int correctKey = key % menu.ALPHABET.length;
+            return correctKey;
+        }
     }
 
-    public boolean isFileExists(String filePath) {
-        isExit(filePath);
-        // Проверка существования файла
-        return false;
-    }
 
     public void isExit(String word){
-        if (exitWord.equalsIgnoreCase(word)) {
+        if (menu.EXIT_WORD.equalsIgnoreCase(word)) {
             // 0. Выход
             throw new RuntimeException();
         }
     }
+
 }
